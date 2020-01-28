@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.course.entities.Category;
 import com.course.entities.Order;
+import com.course.entities.Product;
 import com.course.entities.User;
 import com.course.entities.enums.OrderStatus;
 import com.course.repository.CategoryRepository;
 import com.course.repository.OrderRepository;
+import com.course.repository.ProductRepository;
 import com.course.repository.UserRepository;
 
 @Configuration
@@ -29,6 +31,9 @@ public class TestConfig implements CommandLineRunner{
 	@Autowired
 	private CategoryRepository categoryRepository;
 	
+	@Autowired
+	private ProductRepository productRepository;
+	
 	@Override
 	public void run(String... args) throws Exception {
 
@@ -43,8 +48,24 @@ public class TestConfig implements CommandLineRunner{
 		Category categoria2 = new Category(null, "Books");
 		Category categoria3 = new Category(null, "Computers");
 		
+		Product p1 = new Product(null, "The Lord of the Rings", "Lorem ipsum dolor sit amet, consectetur.", 90.5, "");
+		Product p2 = new Product(null, "Smart TV", "Nulla eu imperdiet purus. Maecenas ante.", 2190.0, "");
+		Product p3 = new Product(null, "Macbook Pro", "Nam eleifend maximus tortor, at mollis.", 1250.0, "");
+		Product p4 = new Product(null, "PC Gamer", "Donec aliquet odio ac rhoncus cursus.", 1200.0, "");
+		Product p5 = new Product(null, "Rails for Dummies", "Cras fringilla convallis sem vel faucibus.", 100.99, ""); 
+		
+		
+		productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
 		categoryRepository.saveAll(Arrays.asList(categoria1, categoria2, categoria3));
 		
+		p1.getCategories().add(categoria2);
+		p2.getCategories().add(categoria1);
+		p2.getCategories().add(categoria3);
+		p3.getCategories().add(categoria3);
+		p4.getCategories().add(categoria3);
+		p5.getCategories().add(categoria2);
+		
+		productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
 		userRepository.saveAll(Arrays.asList(maria, pedro));
 		orderRepository.saveAll(Arrays.asList(pedido1, pedido2, pedido3));
 	}
