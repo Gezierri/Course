@@ -22,7 +22,7 @@ public class OrderResource {
 	@GetMapping
 	public ResponseEntity<List<Order>> listAll(){
 		List<Order> orders = orderService.listAll();
-		return ResponseEntity.ok().body(orders);
+		return ResponseEntity.ok(orders);
 	}
 	
 	@GetMapping("/{id}")
