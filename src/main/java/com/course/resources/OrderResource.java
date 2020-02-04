@@ -31,6 +31,6 @@ public class OrderResource {
 		if (order == null) {
 			return ResponseEntity.notFound().build();
 		}
-		return null;
+		return ResponseEntity.ok(order);
 	}
 }
